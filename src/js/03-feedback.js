@@ -1,6 +1,7 @@
-import throttle from "lodash.throttle";
+import throttle from 'lodash.throttle';
 
 const form = document.querySelector('.feedback-form');
+const LOCAL_STOR_KEY = 'feedback-form-state';
 
 form.addEventListener('input', throttle(onInputChange, 500));
 form.addEventListener('submit', onFormSubmit);
@@ -18,13 +19,12 @@ function onInputChange(evt) {
     message: messageData,
   };
 
-  const LOCAL_STOR_KEY = 'feedback-form-state';
   // сетимо об'єкт в локалСторедж де ключ 'feedback-form-state' а об'єкт - {"email":"","message":""} його значення
   localStorage.setItem(LOCAL_STOR_KEY, JSON.stringify(userData));
 }
 
 //записуємо об'єкт в змінну
-const savedDataFromStorage = localStorage.getItem('feedback-form-state');
+const savedDataFromStorage = localStorage.getItem(LOCAL_STOR_KEY);
 
 //перевіряємо чи є в нас в локалСторедж дані
 if (savedDataFromStorage) {
@@ -50,12 +50,12 @@ function onFormSubmit(evt) {
 
   if (email === '' || message === '') {
     alert('All fields must be fillded');
-    return
+    return;
   } else {
     const userData = {
       email,
       message,
-    }
+    };
     console.log(userData);
     localStorage.clear();
     form.reset();
