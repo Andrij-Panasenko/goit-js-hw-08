@@ -21,7 +21,7 @@ function onPlay(data) {
 
 const savedTimeFromStorage = JSON.parse(localStorage.getItem(CURRENT_TIME_KEY));
 
-if (savedTimeFromStorage !== null) {
+if (savedTimeFromStorage) {
   isSettingTime = true;
   player.setCurrentTime(savedTimeFromStorage);
   isSettingTime = false;
