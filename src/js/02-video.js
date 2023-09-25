@@ -6,6 +6,8 @@ const player = new Player(iframe)
 
 player.on('timeupdate', throttle(onPlay, 1000));
 
+const CURRENT_TIME_KEY = 'videoplayer-current-time';
+
 let isSettingTime = false;
 
 function onPlay(data) {
@@ -13,51 +15,14 @@ function onPlay(data) {
     
 
     if (!isSettingTime) {
-        localStorage.setItem('videoplayer-current-time', JSON.stringify(currentTime));
-
+        localStorage.setItem(CURRENT_TIME_KEY, JSON.stringify(currentTime));
     }
 }
 
-const savedTimeFromStorage = JSON.parse(
-  localStorage.getItem('videoplayer-current-time')
-);
+const savedTimeFromStorage = JSON.parse(localStorage.getItem(CURRENT_TIME_KEY));
 
 if (savedTimeFromStorage !== null) {
   isSettingTime = true;
   player.setCurrentTime(savedTimeFromStorage);
   isSettingTime = false;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const storage = JSON.parse(localStorage.getItem(KEY_TIME)) ?? [];
-
-
-
-// const currentTimeHold = {
-//     "videoplayer-current-time" : data,
-// }
-
-// setItem - додати значення
-// getItem - отримати значення
-// removeItem - видалити значення
-// clear - очистити все 
-// localStorage.setItem(
-//   'назва ключа' /**, JSON.stringify(значення таймера відео) */
-// );
-
-// localStorage.removeItem('назва ключа')
-// localStorage.clear()
-
